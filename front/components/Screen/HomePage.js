@@ -100,6 +100,7 @@ function HomePage({ navigation }) {
           style={styles.body}
         >
           <FlatList  style={styles.list}
+          horizontal={true}
                   data={boardList}
                   кey={(item) => item}
                   renderItem={({item}) => (

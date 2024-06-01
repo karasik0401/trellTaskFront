@@ -22,7 +22,7 @@ import { useIsFocused } from '@react-navigation/native';
 import NavBar from "../Widget/NavBar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import filter from "lodash.filter";
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 import { GetUsersList, createFollow, deleteFollow } from "../api";
 
 const API_URL = REACT_APP_API_URL;

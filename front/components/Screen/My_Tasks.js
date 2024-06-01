@@ -10,7 +10,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import NavBar from '../Widget/NavBar';
 import CardTask_home from '../Widget/CardTask_home';
 import { useIsFocused } from '@react-navigation/native';
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 import { getUsersTasks } from '../api';
 
 const API_URL = REACT_APP_API_URL;

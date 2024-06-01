@@ -11,7 +11,7 @@ import { Stack, IconButton } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AddCheckPoint from "./AddCheckPoint";
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 
 const API_URL = REACT_APP_API_URL;
 

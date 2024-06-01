@@ -16,7 +16,7 @@ import BoardList from "../Widget/BoardList";
 import AddFriends from "../Widget/AddFriends";
 import AddChapter from "../Widget/AddChapter";
 import { useIsFocused } from '@react-navigation/native';
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 import { getBoard } from "../api";
 
 const API_URL = REACT_APP_API_URL;

@@ -16,7 +16,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import AddCheckList from "../Widget/AddCheckList";
 import AddConsumer from "../Widget/AddConsumer";
 import { useIsFocused } from '@react-navigation/native';
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 import { CreateTask, updateTask } from "../api";
 
 const API_URL = REACT_APP_API_URL;

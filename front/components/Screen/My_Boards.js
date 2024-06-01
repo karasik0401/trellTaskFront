@@ -10,7 +10,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import NavBar from '../Widget/NavBar';
 import CardBoard_List from '../Widget/CardBoard_List';
 import { useIsFocused } from '@react-navigation/native';
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 import { getUsersBoards } from '../api';
 
 const API_URL = REACT_APP_API_URL;

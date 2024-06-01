@@ -1,4 +1,4 @@
-import {REACT_APP_API_URL} from "@env";
+import { REACT_APP_API_URL } from '../config';
 const API_URL = REACT_APP_API_URL
 
 const checkResponse = (res) => {

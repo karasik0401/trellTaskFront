@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 
 import { StyleSheet, Text, View, TextInput,Button,Pressable, Alert, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import {REACT_APP_API_URL} from "@env";
+import { REACT_APP_API_URL } from '../../config';
 import { registerUser } from '../api';
 
 const API_URL = REACT_APP_API_URL

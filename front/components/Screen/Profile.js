@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useHistory } from "react-dom";
 import * as ImagePicker from "expo-image-picker";
 import {useIsFocused} from "@react-navigation/native";
-import {REACT_APP_API_URL} from "@env";
+import { REACT_APP_API_URL } from '../../config';
 
 const API_URL = REACT_APP_API_URL
 

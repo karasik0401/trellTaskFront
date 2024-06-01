@@ -24,7 +24,7 @@ import CheckList from "../Widget/CheckList";
 import AddConsumer from "../Widget/AddConsumer";
 import { color } from "@rneui/themed/dist/config";
 import { useIsFocused } from '@react-navigation/native';
-import { REACT_APP_API_URL } from '@env';
+import { REACT_APP_API_URL } from '../../config';
 import { getTask } from "../api";
 
 const API_URL = REACT_APP_API_URL;
