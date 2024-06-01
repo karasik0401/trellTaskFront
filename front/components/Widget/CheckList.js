@@ -13,7 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AddCheckPoint from "./AddCheckPoint";
 import { REACT_APP_API_URL } from '../../config';
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
 
 
 function CheckList({ checkList, taskId, refresh}) {

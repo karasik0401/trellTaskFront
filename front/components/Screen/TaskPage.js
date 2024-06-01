@@ -27,7 +27,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getTask } from "../api";
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
 
 PRIORITY = {
   0: "#7BB558",
@@ -45,6 +45,7 @@ function TaskPage(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [refresh, setRefreshing] = useState(false)
+  console.log()
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -84,15 +85,15 @@ function TaskPage(props) {
 
   const fetchTaskData = async() => {
     try {
-      const response = await getTask(props.route.params);
-      // fetch(`${API_URL}/api/tasks/${props.route.params}/`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     authorization: `Token ${auth_token}`,
-      //   },
-      // });
+      const response = await fetch(`${API_URL}/api/tasks/${props.route.params}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Token ${auth_token}`,
+        },
+      });
       const json = await response.json();
+      console.log(props.route.params)
       setTask(json);
       setCheckList(json.check_list)
       setSelectedDate(new Date(json.deadline));
@@ -270,6 +271,7 @@ function TaskPage(props) {
                 <Icon name="account-plus-outline" {...props} color="#FEFEFE" />
               )}
             />
+            
           </View>
 
           <View style={styles.footerTask_row}></View>

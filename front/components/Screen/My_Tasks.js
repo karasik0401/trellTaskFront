@@ -13,7 +13,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getUsersTasks } from '../api';
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
   
   
   function My_Tasks({ navigation }) {
@@ -21,14 +21,13 @@ const API_URL = REACT_APP_API_URL;
 
     const fetchTaskData = async() => {
       try {
-        const response = await getUsersTasks();
-        // fetch(`${API_URL}/api/tasks/users_tasks/`, {
-        //   method: 'GET',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     authorization: `Token ${auth_token}`,
-        //   },
-        // });
+        const response = await  fetch(`${API_URL}/api/tasks/users_tasks/`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Token ${auth_token}`,
+          },
+        });
         const json = await response.json();
         setTaskList(json);
       }
@@ -79,7 +78,7 @@ const API_URL = REACT_APP_API_URL;
                   data={taskList}
                   кey={(item) => item}
                   renderItem={({item}) => (
-                  <TouchableOpacity onPress={() => navigation.navigate("TaskPage")}>
+                  <TouchableOpacity onPress={() => navigation.navigate("TaskPage", item.id)}>
                     <CardTask_home task={item}/>
                   </TouchableOpacity>)}/>
             </View>

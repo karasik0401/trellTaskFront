@@ -17,9 +17,9 @@ import AddCheckList from "../Widget/AddCheckList";
 import AddConsumer from "../Widget/AddConsumer";
 import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
-import { CreateTask, updateTask } from "../api";
+// import { CreateTask, updateTask } from "../api";
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
 
 PRIORITY = {
   0: "#7BB558",
@@ -72,29 +72,29 @@ function AddTask(props) {
     setModalVisibleConsumer(!modalVisibleConsumer);
   }
 
-  // const checkResponse = (res) => {
-  //   if (res.ok) {
-  //     return res.json();
-  //   }
-  //   return res.json().then((err) => Promise.reject(err));
-  // };
+  const checkResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return res.json().then((err) => Promise.reject(err));
+  };
 
   const handleSubmit = () => {
     createTask();
     navigation.navigate("HomePage");
   }
 
-  // const updateTask = (data) => {
-  //     return fetch(`${API_URL}/api/tasks/${data}/`, {
-  //       method: 'PATCH',
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         authorization: `Token ${auth_token}`,
-  //       },
-  //       body: JSON.stringify({check_list: checkList, assignees: assignees.assignees.assignees}),
-  //       })
-  //       .then(checkResponse)
-  //       };
+  const updateTask = (data) => {
+      return fetch(`${API_URL}/api/tasks/${data}/`, {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Token ${auth_token}`,
+        },
+        body: JSON.stringify({check_list: checkList, assignees: assignees.assignees.assignees}),
+        })
+        .then(checkResponse)
+        };
 
   const createTask = () => {
     let formData = new FormData();
@@ -114,7 +114,15 @@ function AddTask(props) {
           formData.append('priority', priority)
         }
         formData.append('chapter', props.route.params.id)
-        CreateTask().then(checkResponse).then((res) => updateTask(res.id))}
+        return fetch(`${API_URL}/api/tasks/`, {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Token ${auth_token}`,
+          },
+          body: formData
+      })
+          .then(checkResponse).then((res) => updateTask(res.id))}
         
     
 

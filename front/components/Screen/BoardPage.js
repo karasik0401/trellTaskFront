@@ -19,7 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getBoard } from "../api";
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
 
 function BoardPage(props) {
   const {navigation} = props;
@@ -40,38 +40,38 @@ function BoardPage(props) {
     setRefresh(!refresh)
   }
 
-  // const checkResponse = (res) => {
-  //   if (res.ok) {
-  //     return res.json();
-  //   }
-  //   return res.json().then((err) => Promise.reject(err));
-  // };
+  const checkResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return res.json().then((err) => Promise.reject(err));
+  };
 
-  // const postChapter = (name) => {
-  //   board = props.route.params
-  //   console.log(name, board)
-  //   return fetch(`${API_URL}/api/chapters/`, {
-  //       method: 'POST',
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         authorization: `Token ${auth_token}`,
-  //       },
-  //       body: JSON.stringify({ name, board }),
-  //   })
-  //       .then(checkResponse)
-  //   };
+  const postChapter = (name) => {
+    board = props.route.params
+    console.log(name, board)
+    return fetch(`${API_URL}/api/chapters/`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Token ${auth_token}`,
+        },
+        body: JSON.stringify({ name, board }),
+    })
+        .then(checkResponse)
+    };
 
   const fetchBoardData = async() => {
     try {
-      const response = await getBoard(props.route.params);
-      // fetch(`${API_URL}/api/boards/${props.route.params}/`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     authorization: `Token ${auth_token}`,
-      //   },
-      // });
+      const response = await fetch(`${API_URL}/api/boards/${props.route.params}/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Token ${auth_token}`,
+        },
+      });
       const json = await response.json();
+      console.log(json)
       setBoards(json);
       if (currentChapter === 0){
         setCurrentChapter(json.chapters[0].id)

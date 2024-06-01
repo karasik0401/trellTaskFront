@@ -22,7 +22,7 @@ import CardTask_home from "../Widget/CardTask_home";
 import { useIsFocused } from '@react-navigation/native';
 import { getUsersBoards, getUsersTasks } from "../api";
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
 
 function HomePage({ navigation }) {
   const [boardList, setBoardList] = useState([]);

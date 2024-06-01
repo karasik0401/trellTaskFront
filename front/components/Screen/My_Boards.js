@@ -13,7 +13,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getUsersBoards } from '../api';
 
-const API_URL = REACT_APP_API_URL;
+const API_URL = "http://192.168.1.101:8000";
   
   
   function My_Boards({ navigation }) {
@@ -21,14 +21,13 @@ const API_URL = REACT_APP_API_URL;
 
   const fetchBoardData = async() => {
     try {
-      const response = await getUsersBoards()
-      // fetch(`${API_URL}/api/boards/`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     authorization: `Token ${auth_token}`,
-      //   },
-      // });
+      const response = await fetch(`${API_URL}/api/boards/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Token ${auth_token}`,
+        },
+      });
       const json = await response.json();
       setBoardList(json);
     }
@@ -72,12 +71,12 @@ const API_URL = REACT_APP_API_URL;
                         />
             </SafeAreaView>
 
-          <ScrollView showsVerticalScrollIndicator={false} style={styles.bigscroll}>
+          <ScrollView showsVerticalScrollIndicator={false} style={styles.column}>
             <FlatList  style={styles.list}
                   data={boardList}
                   кey={(item) => item}
                   renderItem={({item}) => (
-                  <TouchableOpacity onPress={() => navigation.navigate("BoardPage")}>
+                  <TouchableOpacity onPress={() => navigation.navigate("BoardPage", item.id)}>
                     <CardBoard_List board={item}/>
                   </TouchableOpacity>)}/>
 
