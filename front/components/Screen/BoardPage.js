@@ -19,7 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getBoard } from "../api";
 
-const API_URL = "http://192.168.1.101:8000";
+const API_URL = "http://192.168.1.125:8000";
 
 function BoardPage(props) {
   const {navigation} = props;
@@ -28,6 +28,7 @@ function BoardPage(props) {
   const [boards, setBoards] = useState({});
   const [currentChapter, setCurrentChapter] = useState(0);
   const [refresh, setRefresh] = useState(false)
+  const [creator, setCreator] = useState(0);
 
   const handlePress = () => {
     setModalVisible(!modalVisible)
@@ -61,6 +62,19 @@ function BoardPage(props) {
         .then(checkResponse)
     };
 
+
+    const deleteBoard = async () => {
+      board = props.route.params
+      const response = await fetch(`${API_URL}/api/boards/${props.route.params}/`, {
+          method: 'DELETE',
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Token ${auth_token}`,
+          },
+      })
+      navigation.navigate("HomePage")
+      };
+
   const fetchBoardData = async() => {
     try {
       const response = await fetch(`${API_URL}/api/boards/${props.route.params}/`, {
@@ -73,6 +87,7 @@ function BoardPage(props) {
       const json = await response.json();
       console.log(json)
       setBoards(json);
+      setCreator(json.creator.id)
       if (currentChapter === 0){
         setCurrentChapter(json.chapters[0].id)
       }
@@ -106,6 +121,7 @@ function BoardPage(props) {
 
         <IconButton
           style={styles.icon_header}
+          onPress={() => deleteBoard()}
           icon={(props) => (
             <Icon name="dots-vertical" {...props} color="#FEFEFE" />
           )}
@@ -169,17 +185,9 @@ function BoardPage(props) {
       </ScrollView>
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <AddFriends boardId={props.route.params}/>
+          <View>
+            <AddFriends boardId={props.route.params} creatorId={creator} onSave={handlePress}/>
           </View>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => handlePress()}
-          >
-            <Text style={styles.textStyle}>Готово</Text>
-          </Pressable>
-        </View>
       </Modal>
 
       <Modal

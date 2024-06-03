@@ -1,8 +1,8 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, LogBox } from 'react-native';
 
 import MainStackNavigator from './navigation/MainStackNavigator'
-
+LogBox.ignoreAllLogs();
 export default function App() {
   return (
     <MainStackNavigator>

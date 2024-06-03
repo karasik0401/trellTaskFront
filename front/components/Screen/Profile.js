@@ -7,7 +7,7 @@ import * as ImagePicker from "expo-image-picker";
 import {useIsFocused} from "@react-navigation/native";
 import { REACT_APP_API_URL } from '../../config';
 
-const API_URL = "http://192.168.1.101:8000"
+const API_URL = "http://192.168.1.125:8000"
 
 import { StyleSheet, Text, Image, View, ScrollView, Button,Pressable, Alert, SafeAreaView, } from 'react-native';
 import { ChengeUser, getUser } from '../api';

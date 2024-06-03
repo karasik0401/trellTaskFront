@@ -7,24 +7,64 @@ import {
     Pressable,
     TextInput,
     TouchableOpacity,
+    FlatList
   } from "react-native";
   import React, { useState } from "react";
   import { Stack, IconButton } from "@react-native-material/core";
   import Icon from "@expo/vector-icons/MaterialCommunityIcons";
   import BoardList from "../Widget/BoardList";
-  import AddFriends from "../Widget/AddFriends";
+  import AddFriends from "../Widget/AddFriendsToNewBoard";
   import AddChapter from "../Widget/AddChapter";
+
+  const API_URL = "http://192.168.1.125:8000";
   
   function AddBoard({ navigation }) {
     const [userData, setUserData] = React.useState({});
     const [modalVisible, setModalVisible] = useState(false);
+    const [part, setPart] = useState([])
     const [modalVisibleChapter, setModalVisibleChapter] = useState(false);
+    const [participants, setParticipants] = useState([])
+
+    const handleSubmitParticipants = (selectedParticipants, fullParticipants) => {
+      setParticipants(selectedParticipants);
+      setPart(fullParticipants)
+      console.log(fullParticipants)
+      setModalVisible(!modalVisible);
+    }
+
+    const checkResponse = (res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return res.json().then((err) => Promise.reject(err));
+      };
+    
+
+    const createBoard = () => {
+      let formData = new FormData();
+          if (userData.name) {
+            formData.append('name', userData.name)
+          }
+          participants.forEach(participant => {
+            formData.append('participants', participant);
+          });
+          return fetch(`${API_URL}/api/boards/`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            authorization: `Token ${auth_token}`,
+            },
+            body: formData
+        })
+            .then(checkResponse).then((res) => navigation.navigate("BoardPage", res.id)).catch((res) => console.log(res))
+    }
 
     const onChangeInput = (e, name) => {
         setUserData({
           ...userData,
           [name]: e.nativeEvent.text,
         });
+        console.log(userData)
       };
   
     return (
@@ -43,13 +83,14 @@ import {
   
           <IconButton
           style={styles.icon_header_add}
+          onPress={() => createBoard()}
           icon={(props) => <Icon name="arrow-up" {...props} color="#FEFEFE" />}
         />
         </View>
 
         <TextInput
         style={styles.title}
-        onChange={(e) => onChangeInput(e)}
+        onChange={(e) => onChangeInput(e, "name")}
         placeholder="Название доски"
         fontSize={24}
         type="text"
@@ -69,11 +110,21 @@ import {
                 onPress={() => setModalVisible(true)}
                 icon={(props) => <Icon name="plus" {...props} color="#1C1C1C" />}
               />
+              <FlatList style={styles.list}
+                  data={part}
+                  кey={(item) => item}
+                  renderItem={({item}) => (
+                  <View style={styles.person}>
+                    <Text style={styles.name}>{item.username}</Text>
+                  </View>
+                )
+                }
+                />
 
             </View>
           </ScrollView>
   
-          <ScrollView
+          {/* <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             style={styles.body}
@@ -85,26 +136,18 @@ import {
                 icon={(props) => <Icon name="plus" {...props} color="#FEFEFE" />}
               />
             </View>
-          </ScrollView>
+          </ScrollView> */}
   
-          <BoardList navigation={navigation} />
+          {/* <BoardList navigation={navigation} /> */}
         </ScrollView>
   
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <AddFriends />
+            <View>
+              <AddFriends participants={participants} onSave={handleSubmitParticipants}/>
             </View>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Готово</Text>
-            </Pressable>
-          </View>
         </Modal>
   
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisibleChapter}
@@ -120,7 +163,7 @@ import {
               <Text style={styles.textStyle}>Добавить</Text>
             </Pressable>
           </View>
-        </Modal>
+        </Modal> */}
       </View>
     );
   }

@@ -12,10 +12,10 @@ import { useIsFocused } from '@react-navigation/native';
 
 import { REACT_APP_API_URL } from '../../config';
 
-const API_URL = "http://192.168.1.101:8000";
+const API_URL = "http://192.168.1.125:8000";
 
 
-function AddFriends({ boardId }) {
+function AddFriends({ boardId, creatorId, onSave }) {
   const [board, setBoard] = useState({ participants: [] });
   const [users, setUsers] = useState([])
 
@@ -47,7 +47,7 @@ function AddFriends({ boardId }) {
         },
         body: JSON.stringify({ participants }),
     })
-        .then(checkResponse)
+        .then(checkResponse).catch((res) => console.log(res))
     };
 
   const fetchBoardData = async() => {
@@ -77,6 +77,7 @@ function AddFriends({ boardId }) {
       Alert.alert(err[0][0]);
       }
     );
+    onSave();
   };
 
   const fetchUsersData = async() => {
@@ -94,8 +95,16 @@ function AddFriends({ boardId }) {
         if (user.is_following){
           newList.push(user)
         }
-        
       });
+      const responseMe = await fetch(`${API_URL}/api/users/me/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Token ${auth_token}`,
+        },
+      });
+      const jsonMe = await responseMe.json();
+      newList.push(jsonMe)
       setUsers(newList);
     }
     catch (error) {
@@ -119,40 +128,49 @@ function AddFriends({ boardId }) {
     console.log(board, renderData)
     return (
       <FlatList
-        style={styles.container}
-        data={renderData}
-        renderItem={({ item }) => (
-          <View style={{ margin: 0 }}>
-            <View style={styles.card}>
-              <Text style={styles.item}>{item.username}</Text>
-              <Pressable onPress={() => handleChange(item.id)}>
-                <MaterialCommunityIcons
-                  name={board.participants.includes(item.id)? "close-circle" : "plus-circle-outline"}
-                  size={28}
-                  color="#EB5093"
-                />
-              </Pressable>
-            </View>
-          </View>
-        )}
-      />
+  style={styles.container}
+  data={renderData}
+  renderItem={({ item }) => (
+    <View style={{ margin: 0 }}>
+      <View style={styles.card}>
+        <Text style={styles.item}>{item.username}</Text>
+        <View>
+          {creatorId === item.id ? (
+            <Text>Создатель</Text>
+          ) : (
+            <Pressable onPress={() => handleChange(item.id)}>
+              <MaterialCommunityIcons
+                name={board.participants.includes(item.id) ? "close-circle" : "plus-circle-outline"}
+                size={28}
+                color="#EB5093"
+              />
+            </Pressable>
+          )}
+        </View>
+      </View>
+    </View>
+  )}
+/>
     );
   };
 
   return (
+    <View style={styles.centeredView}>
+          <View style={styles.modalView}>
     <View style={styles.container}>
       <Text style={styles.title}>Добавить участников доски</Text>
       <View style={styles.line}></View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
         {renderFlatList(users, board)}
       </ScrollView>
-      <Pressable
+      </View>
+    </View>
+    <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => handleSubmit()}
               >
-                <Text style={styles.textStyle}>Сохранить</Text>
+                <Text style={styles.textStyle}>Готово</Text>
               </Pressable>
-      <View></View>
     </View>
   );
 }
@@ -191,6 +209,36 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: -16,
     color: "#A3A6AA"
+  },
+  modalView: {
+    marginTop: 200,
+    marginHorizontal: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonClose: {
+    backgroundColor: "#fff",
+  },
+  textStyle: {
+    color: "#333",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  button: {
+    borderRadius: 20,
+    paddingVertical: 16,
+    marginHorizontal: 40,
+    marginTop: 24,
   },
 });
 

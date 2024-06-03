@@ -27,7 +27,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getTask } from "../api";
 
-const API_URL = "http://192.168.1.101:8000";
+const API_URL = "http://192.168.1.125:8000";
 
 PRIORITY = {
   0: "#7BB558",

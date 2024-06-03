@@ -4,6 +4,7 @@ import {
     View, ScrollView, Image, FlatList, Alert, TextInput, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TouchableOpacity, SafeAreaView
   } from 'react-native';
 import { Feather, Entypo } from "@expo/vector-icons";
+import filter from "lodash.filter";
 import React, {useState, useEffect} from "react";
 import { Stack, IconButton } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
@@ -13,11 +14,13 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getUsersTasks } from '../api';
 
-const API_URL = "http://192.168.1.101:8000";
+const API_URL = "http://192.168.1.125:8000";
   
   
   function My_Tasks({ navigation }) {
     const [taskList, setTaskList] = useState([]);
+    const [searchQuery, setsearchQuery] = useState("");
+    const [data, setData] = useState([]);
 
     const fetchTaskData = async() => {
       try {
@@ -30,11 +33,27 @@ const API_URL = "http://192.168.1.101:8000";
         });
         const json = await response.json();
         setTaskList(json);
+        setData(json)
       }
       catch (error) {
         console.log(error);
         }
     };
+
+    const handleSearch = (query) => {
+      setsearchQuery(query);
+      const filteredData = filter(data, (user) => {
+        return contains(user, query);
+      });
+      setTaskList(filteredData);
+    };
+    
+    const contains = ({name}, query) => {
+      if (name.includes(query)) {
+        return true;
+      }
+      return false;
+    }
 
     const isFocused = useIsFocused();
       useEffect(() => {
@@ -67,6 +86,7 @@ const API_URL = "http://192.168.1.101:8000";
                         style={styles.search}
                         autoCapitalize="none"
                         autoCorrect={false}
+                        onChangeText={(query) => handleSearch(query)}
                         />
             </SafeAreaView>
 
@@ -121,7 +141,6 @@ const API_URL = "http://192.168.1.101:8000";
             alignSelf:"center",
             backgroundColor: "#fff",
             paddingLeft: 35,
-        
           },
 
         header:{
