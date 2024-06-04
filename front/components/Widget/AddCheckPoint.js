@@ -32,8 +32,7 @@ import {
   
     const renderPoint = (e, name) => {
       return (
-        <View
-          style={styles.container}>
+        <View style={styles.container}>
           
             <View style={{ margin: 0 }}>
               <TextInput
@@ -45,25 +44,30 @@ import {
                 id = {1}
                 />
             </View>
-            <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => handleSubmit()}
-          >
-            <Text style={styles.textStyle}>Добавить</Text>
-          </Pressable>
-        </View>
+            </View> 
+            
+
       );
     };
   
     return (
+      <View>
+      <View style={styles.modalView}>
       <View style={styles.container}>
         <Text style={styles.title}>Новый элемент чек-листа</Text>
         <View style={styles.line}></View>
 
           {renderPoint(userData)}
 
-        <View></View>
+        </View>
       </View>
+      <Pressable
+      style={[styles.button, styles.buttonClose]}
+      onPress={() => handleSubmit()}
+    >
+      <Text style={styles.textStyle}>Добавить</Text>
+    </Pressable>
+    </View>
     );
   }
   
@@ -72,7 +76,6 @@ import {
       display: "flex",
       flexDirection: "column",
       width: '100%',
-      height: 40,
     },
     body: {
       height: 30,
@@ -81,7 +84,10 @@ import {
     item:{
       fontSize: 16
     },
-  
+    Login:{
+      // marginBottom: 8,
+      // paddingHorizontal: 8,
+    },
     card: {
       display: "flex",
       flexDirection: "row",
@@ -102,6 +108,38 @@ import {
       marginBottom: 16,
       marginTop: -16,
       color: "#A3A6AA"
+    },
+    modalView: {
+      marginTop: 250,
+      marginHorizontal: 40,
+      backgroundColor: "white",
+      borderRadius: 20,
+      paddingTop: 35,
+      paddingBottom: 16,
+      paddingHorizontal: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    buttonClose: {
+      backgroundColor: "#fff",
+    },
+    textStyle: {
+      color: "#333",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    button: {
+      borderRadius: 20,
+      paddingVertical: 16,
+      marginHorizontal: 40,
+      marginTop: 24,
     },
   });
   

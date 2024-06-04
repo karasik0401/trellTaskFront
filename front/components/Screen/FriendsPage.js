@@ -25,7 +25,7 @@ import filter from "lodash.filter";
 import { REACT_APP_API_URL } from '../../config';
 import { GetUsersList, createFollow, deleteFollow } from "../api";
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 
 function FriendsPage({ navigation }) {
@@ -171,6 +171,7 @@ function FriendsPage({ navigation }) {
           color="#ccc"
           style={{
             marginLeft: 30,
+            position: 'absolute',
             marginBottom: -35,
             marginTop: 16,
             zIndex: 1,

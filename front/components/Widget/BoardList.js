@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#CDDCA1",
     width: 342,
     marginTop: 29,
+    marginLeft: 24-15,
     borderRadius: 30,
     display: "flex",
     flexDirection: "column",

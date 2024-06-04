@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TextInput,Button,Pressable, Alert, ScrollView, 
 import { REACT_APP_API_URL } from '../../config';
 import { registerUser } from '../api';
 
-const API_URL = "http://192.168.1.125:8000"
+const API_URL = "http://192.168.1.118:8000"
 console.log(API_URL)
 
 function Sign_up({navigation}) {

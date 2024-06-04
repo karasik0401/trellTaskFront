@@ -14,7 +14,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getUsersTasks } from '../api';
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
   
   
   function My_Tasks({ navigation }) {
@@ -77,8 +77,10 @@ const API_URL = "http://192.168.1.125:8000";
                 name="search"
                 size={20}
                 color='#ccc'
-                style={{ marginLeft: 30,
-                marginBottom: -35,
+                style={{ 
+                marginLeft: 30,
+                position: 'absolute',
+                marginBottom: -37,
                 marginTop: 16,
                 zIndex: 1, }}
                 />

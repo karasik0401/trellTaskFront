@@ -12,7 +12,7 @@ import {
   
   import { REACT_APP_API_URL } from '../../config';
   
-  const API_URL = "http://192.168.1.125:8000";
+  const API_URL = "http://192.168.1.118:8000";
   
   
   function AddFriends({participants, onSave}) {

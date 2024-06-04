@@ -11,7 +11,7 @@ import {
   import { useIsFocused } from '@react-navigation/native';
   import { REACT_APP_API_URL } from '../../config';
 
-  const API_URL = "http://192.168.1.125:8000";
+  const API_URL = "http://192.168.1.118:8000";
   
 
   
@@ -48,25 +48,36 @@ import {
                 id = {1}
                 />
             </View>
-            <Pressable
+            {/* <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => handleSubmit()}
           >
             <Text style={styles.textStyle}>Добавить</Text>
-          </Pressable>
+          </Pressable> */}
         </View>
       );
     };
   
     return (
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
       <View style={styles.container}>
         <Text style={styles.title}>Новый список</Text>
         <View style={styles.line}></View>
 
           {renderChapter(userData)}
 
-        <View></View>
+        </View>
       </View>
+      
+                  <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => handleSubmit()}
+                >
+                  <Text style={styles.textStyle}>Добавить</Text>
+                </Pressable>
+
+        </View>
     );
   }
   
@@ -75,10 +86,9 @@ import {
       display: "flex",
       flexDirection: "column",
       width: '100%',
-      height: 40,
     },
     body: {
-      height: 30,
+      height: 50,
     },
   
     item:{
@@ -105,6 +115,38 @@ import {
       marginBottom: 16,
       marginTop: -16,
       color: "#A3A6AA"
+    },
+    modalView: {
+      marginTop: 250,
+      marginHorizontal: 40,
+      backgroundColor: "white",
+      borderRadius: 20,
+      paddingTop: 35,
+      paddingBottom: 16,
+      paddingHorizontal: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    buttonClose: {
+      backgroundColor: "#fff",
+    },
+    textStyle: {
+      color: "#333",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    button: {
+      borderRadius: 20,
+      paddingVertical: 16,
+      marginHorizontal: 40,
+      marginTop: 24,
     },
   });
   

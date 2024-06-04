@@ -27,7 +27,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getTask } from "../api";
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 PRIORITY = {
   0: "#7BB558",
@@ -271,6 +271,13 @@ function TaskPage(props) {
                 <Icon name="account-plus-outline" {...props} color="#FEFEFE" />
               )}
             />
+            {task.assignees.map(assign => (
+                    <Image
+                    key={assign.id}
+                    style={styles.circl}
+                    source={assign.photo ? { uri: assign.photo } : require('../../img/Profile.png')}
+                    />
+                ))}
             
           </View>
 
@@ -294,13 +301,7 @@ function TaskPage(props) {
         transparent={true}
         visible={modalVisibleConsumer}
       >
-              {task.assignees.map(assign => (
-                    <Image
-                    key={assign.id}
-                    style={styles.circl}
-                    source={assign.photo ? { uri: assign.photo } : require('../../img/Profile.png')}
-                    />
-                ))}
+              
         <View style={styles.centeredView}>
           <View style={styles.modalViewChapter}>
             {task ? (<AddConsumer task={task} onSave={handleSubmitConsumer}/>): null}
@@ -345,7 +346,6 @@ circl:{
   borderWidth: 1,
   backgroundColor: '#000000',
   marginRight: -15,
-  marginTop: 20
 
 },
 
@@ -395,23 +395,7 @@ circl:{
     marginTop: 8
   },
 
-  modalViewChapter: {
-    marginTop: 250,
-    marginHorizontal: 40,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-
+  
   footerTask: {
     display: "flex",
     flexDirection: "column",

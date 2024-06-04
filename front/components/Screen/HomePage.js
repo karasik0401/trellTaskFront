@@ -22,7 +22,7 @@ import CardTask_home from "../Widget/CardTask_home";
 import { useIsFocused } from '@react-navigation/native';
 import { getUsersBoards, getUsersTasks } from "../api";
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 function HomePage({ navigation }) {
   const [boardList, setBoardList] = useState([]);
@@ -194,6 +194,12 @@ const styles = StyleSheet.create({
 
   card: {
     marginRight: 16,
+  },
+
+  bigscroll:{
+    height: '100%',
+    width: '100%',
+    
   },
 });
 

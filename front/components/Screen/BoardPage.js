@@ -19,7 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 import { getBoard } from "../api";
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 function BoardPage(props) {
   const {navigation} = props;
@@ -129,11 +129,7 @@ function BoardPage(props) {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          style={styles.body}
-        >
+
           <View style={styles.comand}>
             <IconButton
               style={styles.icon_comand}
@@ -141,6 +137,7 @@ function BoardPage(props) {
               icon={(props) => <Icon name="plus" {...props} color="#1C1C1C" />}
             />
              <FlatList style={styles.list}
+              horizontal={true}
                   data={boards.participants}
                   кey={(item) => item}
                   renderItem={({item}) => (
@@ -151,13 +148,9 @@ function BoardPage(props) {
                 }
                 />
           </View>
-        </ScrollView>
 
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          style={styles.body}
-        >
+
+
           <View style={styles.list}>
             <IconButton
               style={styles.icon_list}
@@ -166,6 +159,8 @@ function BoardPage(props) {
             />
             <FlatList
                   data={boards.chapters}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
                   кey={(item) => item}
                   renderItem={({item}) => (
                     <TouchableOpacity
@@ -178,9 +173,9 @@ function BoardPage(props) {
                 }
                 />
           </View>
-        </ScrollView>
+
         {(boards.chapters && currentChapter != 0) && (
-          <BoardList navigation={navigation} chapters={boards.chapters.find(chapter => chapter.id === currentChapter)}/>
+          <BoardList style={styles.listt} navigation={navigation} chapters={boards.chapters.find(chapter => chapter.id === currentChapter)}/>
         )}
       </ScrollView>
 
@@ -210,7 +205,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
     height: "100%",
     backgroundColor: "#1C1C1C",
   },
@@ -218,26 +212,29 @@ const styles = StyleSheet.create({
   icon_comand: {
     width: 30,
     height: 30,
-    marginTop: 7,
+    marginTop: 16,
     backgroundColor: "#fefefe",
   },
-
-  modalViewChapter: {
-    marginTop: 250,
-    marginHorizontal: 40,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  listt:{
+    marginLeft: 20,
   },
+
+  // modalViewChapter: {
+  //   marginTop: 250,
+  //   marginHorizontal: 40,
+  //   backgroundColor: "white",
+  //   borderRadius: 20,
+  //   padding: 35,
+  //   alignItems: "center",
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 2,
+  //   },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 4,
+  //   elevation: 5,
+  // },
 
   modalView: {
     marginTop: 200,
@@ -334,7 +331,7 @@ const styles = StyleSheet.create({
     color: "#fefefe",
     marginBottom: 8,
     marginTop: 8,
-    marginRight: 12,
+    paddingHorizontal: 8,
   },
 
   person: {
@@ -346,6 +343,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignContent: "center",
     marginLeft: 8,
+    
   },
 
   comand: {
@@ -382,6 +380,12 @@ const styles = StyleSheet.create({
   icon_header: {
     width: 30,
     height: 30,
+  },
+  body:{
+    height: "100%",
+    width: "100%",
+    paddingLeft: 16,   
+
   },
 });
 

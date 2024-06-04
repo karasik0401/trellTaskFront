@@ -116,24 +116,22 @@ import {
   
         <View></View>
         <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisibleCheckList}
-                        
-                      >
-                        <View style={styles.centeredView}>
-                          <View style={styles.mod}>
-                            <AddCheckPoint onSave={handleChange}/>
+          animationType="slide"
+          transparent={true}
+          visible={modalVisibleCheckList}
+          
+        >
+            <View>
+              <AddCheckPoint onSave={handleChange}/>
 
-                          </View>
-                          <Pressable
-                              style={[styles.buttonAdd, styles.buttonCloseAdd]}
-                              onPress={() => setModalVisibleCheckList(!modalVisibleCheckList)}
-                            >
-                              <Text style={styles.textStyleAdd}>Добавить</Text>
-                            </Pressable>
-                        </View>
-                      </Modal>
+            {/* <Pressable
+                style={[styles.buttonAdd, styles.buttonCloseAdd]}
+                onPress={() => setModalVisibleCheckList(!modalVisibleCheckList)}
+              >
+                <Text style={styles.textStyleAdd}>Добавить</Text>
+              </Pressable> */}
+          </View>
+        </Modal>
       </View>
 
       
@@ -141,22 +139,22 @@ import {
   }
   
   const styles = StyleSheet.create({
-    mod:{
-        marginTop: 250,
-        marginHorizontal: 40,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
+    // mod:{
+    //     marginTop: 250,
+    //     marginHorizontal: 40,
+    //     backgroundColor: "white",
+    //     borderRadius: 20,
+    //     padding: 35,
+    //     alignItems: "center",
+    //     shadowColor: "#000",
+    //     shadowOffset: {
+    //       width: 0,
+    //       height: 2,
+    //     },
+    //     shadowOpacity: 0.25,
+    //     shadowRadius: 4,
+    //     elevation: 5,
+    // },
 
     buttonAdd: {
         borderRadius: 20,

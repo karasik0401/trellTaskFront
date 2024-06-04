@@ -13,7 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AddCheckPoint from "./AddCheckPoint";
 import { REACT_APP_API_URL } from '../../config';
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 
 function CheckList({ checkList, taskId, refresh}) {
@@ -137,17 +137,17 @@ function CheckList({ checkList, taskId, refresh}) {
         transparent={true}
         visible={modalVisibleCheckList}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.mod}>
+        {/* <View style={styles.centeredView}> */}
+          <View>
             <AddCheckPoint onSave={handleChange}/>
           </View>
-          <Pressable
+          {/* <Pressable
             style={[styles.buttonAdd, styles.buttonCloseAdd]}
             onPress={() => setModalVisibleCheckList(!modalVisibleCheckList)}
           >
             <Text style={styles.textStyleAdd}>Добавить</Text>
-          </Pressable>
-        </View>
+          </Pressable> */}
+        {/* </View> */}
       </Modal>
     </View>
   );
@@ -171,6 +171,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  icon_chb: {
+    width: 30,
+    height: 30,
   },
 
   mod: {
@@ -272,6 +276,7 @@ const styles = StyleSheet.create({
   checkbox_row: {
     display: "flex",
     flexDirection: "row",
+    verticalAlign: "middle"
   },
 
   check_title: {

@@ -12,7 +12,7 @@ import { useIsFocused } from '@react-navigation/native';
 
 import { REACT_APP_API_URL } from '../../config';
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 
 function AddFriends({ boardId, creatorId, onSave }) {
@@ -156,7 +156,7 @@ function AddFriends({ boardId, creatorId, onSave }) {
 
   return (
     <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+    <View style={styles.modalView}>
     <View style={styles.container}>
       <Text style={styles.title}>Добавить участников доски</Text>
       <View style={styles.line}></View>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   body: {
-    height: 200,
+    height: 220,
   },
 
   item:{
@@ -215,7 +215,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    paddingTop: 35,
+    paddingBottom: 16,
+    paddingHorizontal: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

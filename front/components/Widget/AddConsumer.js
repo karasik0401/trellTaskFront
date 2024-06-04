@@ -11,7 +11,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
   
   
   function AddConsumer({task, onSave }) {
@@ -82,7 +82,6 @@ const API_URL = "http://192.168.1.125:8000";
     const renderFlatList = (board, assignee) => {
       console.log(assignee)
       return (
-        <View>
         <FlatList
           style={styles.container}
           data={board.participants}
@@ -101,24 +100,27 @@ const API_URL = "http://192.168.1.125:8000";
             </View>
           )}
         />
-        <Pressable
-              style={[styles.button]}
-              onPress={() => handleSubmit()}
-            >
-              <Text style={styles.textStyle}>Готово</Text>
-          </Pressable>
-          </View>
+
       );
     };
   
     return (
+      <View style={styles.centeredView}>
+      <View style={styles.modalView}>
       <View style={styles.container}>
         <Text style={styles.title}>Назначить участника</Text>
         <View style={styles.line}></View>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
           {renderFlatList(board, assignee)}
         </ScrollView>
-        <View></View>
+        </View>
+      </View>
+      <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => handleSubmit()}
+            >
+              <Text style={styles.textStyle}>Готово</Text>
+          </Pressable>
       </View>
     );
   }
@@ -157,6 +159,38 @@ const API_URL = "http://192.168.1.125:8000";
       marginBottom: 16,
       marginTop: -16,
       color: "#A3A6AA"
+    },
+    modalView: {
+      marginTop: 250,
+      marginHorizontal: 40,
+      backgroundColor: "white",
+      borderRadius: 20,
+      paddingTop: 35,
+      paddingBottom: 16,
+      paddingHorizontal: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    buttonClose: {
+      backgroundColor: "#fff",
+    },
+    textStyle: {
+      color: "#333",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    button: {
+      borderRadius: 20,
+      paddingVertical: 16,
+      marginHorizontal: 40,
+      marginTop: 24,
     },
   });
   

@@ -16,7 +16,7 @@ import {
   import AddFriends from "../Widget/AddFriendsToNewBoard";
   import AddChapter from "../Widget/AddChapter";
 
-  const API_URL = "http://192.168.1.125:8000";
+  const API_URL = "http://192.168.1.118:8000";
   
   function AddBoard({ navigation }) {
     const [userData, setUserData] = React.useState({});
@@ -78,16 +78,6 @@ import {
               <Icon name="arrow-left" {...props} color="#1c1c1c" />
             )}
           />
-
-          </View>
-  
-          <IconButton
-          style={styles.icon_header_add}
-          onPress={() => createBoard()}
-          icon={(props) => <Icon name="arrow-up" {...props} color="#FEFEFE" />}
-        />
-        </View>
-
         <TextInput
         style={styles.title}
         onChange={(e) => onChangeInput(e, "name")}
@@ -97,8 +87,17 @@ import {
         placeholderTextColor="#828282"
         id={1}
       />
+          </View>
   
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
+          <IconButton
+          style={styles.icon_header_add}
+          onPress={() => createBoard()}
+          icon={(props) => <Icon name="arrow-up" {...props} color="#FEFEFE" />}
+        />
+        </View>
+
+
+  
           <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal={true}
@@ -112,6 +111,7 @@ import {
               />
               <FlatList style={styles.list}
                   data={part}
+                  horizontal={true}
                   кey={(item) => item}
                   renderItem={({item}) => (
                   <View style={styles.person}>
@@ -139,7 +139,7 @@ import {
           </ScrollView> */}
   
           {/* <BoardList navigation={navigation} /> */}
-        </ScrollView>
+
   
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
             <View>
@@ -191,7 +191,7 @@ import {
     icon_comand: {
       width: 30,
       height: 30,
-      marginTop: 7,
+      marginTop: 16,
       backgroundColor: "#fefefe",
     },
   
@@ -306,8 +306,7 @@ import {
       fontSize: 18,
       color: "#fefefe",
       marginBottom: 8,
-      marginTop: 8,
-      marginRight: 12,
+      marginTop: 7,
     },
   
     person: {
@@ -319,12 +318,13 @@ import {
       borderWidth: 1,
       alignContent: "center",
       marginLeft: 8,
+      paddingHorizontal: 8,
     },
   
     comand: {
       display: "flex",
       flexDirection: "row",
-      marginTop: 25 - 20,
+      verticalAlign: "middle",
     },
   
     header: {
@@ -349,6 +349,12 @@ import {
       fontWeight: 600,
       color: "#FEFEFE",
       marginLeft: 12,
+    },
+    body:{
+      height: "100%",
+      width: "100%",
+      paddingLeft: 16,
+
     },
   
   });

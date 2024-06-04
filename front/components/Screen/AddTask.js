@@ -19,7 +19,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { REACT_APP_API_URL } from '../../config';
 // import { CreateTask, updateTask } from "../api";
 
-const API_URL = "http://192.168.1.125:8000";
+const API_URL = "http://192.168.1.118:8000";
 
 PRIORITY = {
   0: "#7BB558",
@@ -141,6 +141,17 @@ function AddTask(props) {
               <Icon name="arrow-left" {...props} color="#1C1C1C" />
             )}
           />
+      <TextInput
+        style={styles.title}
+        onChange={(e) => onChangeInput(e, "name")}
+        placeholder="Название задачи"
+        fontSize={24}
+        type="text"
+        
+        placeholderTextColor="#828282"
+        id={1}
+      />
+
         </View>
 
         <IconButton
@@ -149,15 +160,7 @@ function AddTask(props) {
           icon={(props) => <Icon name="arrow-up" {...props} color="#FEFEFE" />}
         />
       </View>
-      <TextInput
-        style={styles.title}
-        onChange={(e) => onChangeInput(e, "name")}
-        placeholder="Название задачи"
-        fontSize={24}
-        type="text"
-        placeholderTextColor="#828282"
-        id={1}
-      />
+
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
         <TextInput
@@ -226,6 +229,7 @@ function AddTask(props) {
               )}
             />
             <Modal
+              style={[styles.button, styles.buttonCloseGreen]}
               animationType="slide"
               transparent={true}
               visible={modalVisible}
@@ -263,6 +267,8 @@ function AddTask(props) {
                 elevation: 2,
                 width: 80,
                 height: 30,
+                borderWidth: 1,
+                borderColor: "#FEFEFE",
                 backgroundColor: PRIORITY[priority],
               }}
               onPress={() => setModalVisible(true)}
@@ -290,17 +296,10 @@ function AddTask(props) {
         transparent={true}
         visible={modalVisibleConsumer}
       >
-        <View style={styles.centeredView}>
           <View style={styles.modalViewChapter}>
             {assignees ? <AddConsumer task={{assignees, board_id: props.route.params.board}} onSave={handleSubmitConsumer}/>: null}
           </View>
-          {/* <Pressable
-            style={[styles.buttonCons, styles.buttonCloseCons]}
-            onPress={() => setModalVisibleConsumer(!modalVisibleConsumer)}
-          >
-            <Text style={styles.textStyleCons}>Готово</Text>
-          </Pressable> */}
-        </View>
+
       </Modal>
     </View>
   );
@@ -340,23 +339,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  modalViewChapter: {
-    marginTop: 250,
-    marginHorizontal: 40,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-
+  
   footerTask: {
     display: "flex",
     flexDirection: "column",
@@ -433,7 +416,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     verticalAlign: "middle",
     width: 393,
-    height: 40,
+    height: 50,
     paddingHorizontal: 16,
   },
 
@@ -448,6 +431,7 @@ const styles = StyleSheet.create({
     color: "#FEFEFE",
     marginLeft: 12,
     marginBottom: 16,
+    marginTop: 0
   },
 
   discription: {
